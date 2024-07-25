@@ -212,9 +212,9 @@ def checkAccuracy():
 
 
 if __name__ == "__main__":
-    #parseFile('Phishing.txt')
-    #print('URL Check Completed')
-    #time.sleep(1.5)
+    parseFile('Phishing.txt')
+    print('URL Check Completed')
+    time.sleep(1.5)
     print('Triggering Data Set Constructions')
     trainModel('openURLS.txt')
     time.sleep(1.5)
