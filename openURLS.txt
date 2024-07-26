@@ -60,7 +60,7 @@
 0 http://metamasxextension.gitbook.io/us
 0 https://w1se.com.corneliaswart.co.za/login
 0 https://beautifulwomenvideoskhmer.vvipwww.com/
-0 http://asadorpauli.com/news/views%25%25/id/[RandStr,40-65,0-z,R,1/!!!TEMPLATE(S)%20ERROR:%20TEMPLATE(S)%20ENCLOSED%20IN%20'[%25%25'%20AND%20'%25%25]'%20INCORRECTLY!!!ORandStr,4-4,1-9,R,1:%20contains%20wrong%20parameter(s)%20!
+0 http://asadorpauli.com/news/views%25%25/id/RandStr,40-65,0-z,R,1/!!!TEMPLATE(S)%20ERROR:%20TEMPLATE(S)%20ENCLOSED%20IN%20'[%25%25'%20AND%20'%25%25]'%20INCORRECTLY!!!ORandStr,4-4,1-9,R,1:%20contains%20wrong%20parameter(s)%20!
 0 https://chorme-login-metamask.gitbook.io/
 0 https://furnisherstoreoptizationbusiness.freewebhostmost.com/officialfishermanstore/
 0 http://www.spoatify.freewebhostmost.com/
