@@ -184,16 +184,6 @@
 1 https://www.oyo.in
 1 https://www.goibibo.in
 1 https://www.indiamart.in
-
-
-
-
-
-
-
-
-
-
 0 https://help-app---metamask-usa.webflow.io/
 0 https://gt9mkhklnucnjhpnrvpyosrkdtp8bz76kezbvposhnkhuu.pages.dev/smart89/
 0 https://meihjzidw0caomthdd099teatzijpgxcnsrzbo4blcdevjetx.pages.dev/smart89/
@@ -2036,153 +2026,745 @@
 0 https://8okjm.pages.dev/
 0 https://kredi-basvur.pages.dev/
 0 https://bafybeidljlqy5pnfpg5bsexko65td3gwuims4gk6jqgwc3eqbgpz2fes5i.ipfs.dweb.link/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Not Trained 
-
-
-
-
-
-Original CODE :
-
-
-
-
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, classification_report
-from sklearn.preprocessing import LabelEncoder
-from urllib.parse import urlparse, parse_qs
-import re
-import requests
-from bs4 import BeautifulSoup
-import tldextract
-import math
-
-
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-    'Accept-Language': 'en-US,en;q=0.9',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Connection': 'keep-alive',
-    'Upgrade-Insecure-Requests': '1',
-    'Cache-Control': 'max-age=0'
-}
-
-
-
-def ShannonEntropy(entropyType):
-    probabilities = [float(entropyType.count(c)) / len(entropyType) for c in dict.fromkeys(list(entropyType))]
-    return -sum([p * math.log(p) / math.log(2.0) for p in probabilities])
-
-
-def getTitle(url):
-    try:
-        return BeautifulSoup(requests.get(url, headers=headers).content, 'html.parser').title.string
-    except:
-        return 0
-    
-def HasTitle(url):
-    hasTitle = BeautifulSoup(requests.get(url, headers=headers).content, 'html.parser').title
-    if hasTitle:
-        return 1  
-    else:
-        return 0 
-
-
-def hasFavicon(url):
-    if BeautifulSoup(requests.get(url, headers=headers).content, 'html.parser').find("link", rel=re.compile(r'^(shortcut )?icon$', re.I)):
-        return 1
-    else:
-        return 0 
-
-def hasCopyRightInfo(url):
-    for element in BeautifulSoup(requests.get(url, headers=headers).content, 'html.parser').find_all(['footer', 'div', 'span', 'p', 'small', 'a']):
-        text = element.get_text().lower()
-        for keyword in ['copyright', '©']:
-            if keyword in text:
-                return 1
-    return 0
-
-def hasRedirects(url):
-    if len(requests.get(url, headers=headers).history):
-        return 1
-    else:
-        return 0 
-
-
-def constructDataSet(label, url):
-    print(url, label)
-    try:
-        features = {}
-        parseUrl = urlparse(url)
-        domainInfo = tldextract.extract(url)
-        queryParameters = parse_qs(parseUrl.query)
-        features['URL'] = url
-        features['UrlLength'] = len(url)
-        features['DomainLength'] = len(parseUrl.netloc)
-        features['NumOfDots'] = url.count('.')
-        features['NumOfHypens'] = url.count('-')
-        features['NumOfUnderscores'] = url.count('_')
-        features['NumOfSlashes'] = url.count('/')
-        features['NumOfDigits'] = sum(c.isdigit() for c in url)
-        features['NumOfSpecialCharacters'] = len(re.findall(r'[^\w\s]', url))
-        features['NumOfCaptialLetters'] = sum(1 for c in url if c.isupper())
-        features['NumOfSubdomains'] = len(domainInfo.subdomain.split('.'))
-        features['IsDomainIP'] = int(re.match(r'^\d{1,3}(\.\d{1,3}){3}$', parseUrl.netloc) is not None)
-        features['TLDLength'] = len(domainInfo.suffix)
-        features['NumOfDirectories'] = len(parseUrl.path.split('/')) - 1
-        features['PathEntropy'] = ShannonEntropy(parseUrl.path)
-        features['NumOfParameters'] = len(queryParameters)
-        features['QueryEntropy'] = ShannonEntropy(parseUrl.query)
-        features['IsHTTPS'] = int(parseUrl.scheme == 'https')
-        features['NoOfObusfucatedCharacters'] = len(re.findall(r'%[0-9A-Fa-f]{2}', url))
-        features['HasTitle'] = HasTitle(url)
-        features['Title'] = getTitle(url)
-        features['HasFavicon'] = hasFavicon(url)
-        features['HasCopyRightInfo'] = hasCopyRightInfo(url)
-        features['HasURLRedirects'] = hasRedirects(url)
-        features['label'] = label
-        print(features)
-    except Exception:
-        pass
-    return features
-
-
-def trainModel(file):
-    all_features = []
-    first_write = False
-    with open(file, 'r') as f:
-        for line in f:
-            label, url = line.strip().split(maxsplit=1)
-            features = constructDataSet(label, url)
-            all_features.append(features)
-            if first_write:
-                pd.DataFrame([features]).to_csv('myDataSet.csv', index=False, mode='a', header=True)
-                first_write = False
-            else:
-                pd.DataFrame([features]).to_csv('myDataSet.csv', index=False, mode='a', header=False)
-    print("DataSet Completed!")
-
-
-trainModel('Train.txt')
-
-
+0 https://akshay-prashar.github.io/First-push
+0 https://app.gopay.co.id.sg5.wuush.us.kg/
+0 https://app.gopay.co.id.th.wuush.us.kg/
+0 https://pub-c7dcd6a5d3804dcf891a9084fc1e7b7c.r2.dev/index.html
+0 https://murat-turkiye.com/
+0 https://app.gopay.co.id.sg.wuush.us.kg/
+0 https://app.gopay.co.id.sg2.wuush.us.kg/
+0 https://receive-of.sbs/i/
+0 https://app.gopay.co.id.id.wuush.us.kg/
+0 https://ava.game.naver.com.id.wuush.us.kg/
+0 https://kiranmanaware.github.io/Kiran-snetflix
+0 https://app.gopay.co.id.sg1.wuush.us.kg/
+0 http://apple.nfc657.com/
+0 https://ed1134lia490fnlr9sic4ds02igkkve0.ocalam.com:8443/impact?impact=sudhir.math
+0 http://apple.bot426.com/
+0 https://apple.onk615.com/
+0 http://pub-6647379952cc4cd3b00315a747c57534.r2.dev/hostyyzx.html
+0 https://facebooks-com.vn/scj3st4dlvvxqo68zqzmgb?v/
+0 https://mttamscklgiin.webflow.io/
+0 https://mettamaskextensiion.webflow.io/
+0 https://riprogramma.consegna.52-47-206-73.cprapid.com/brt/payment.php
+0 https://49moleraur.xyz/garanti
+0 https://mesmetamaskextension.webflow.io/
+0 https://metamskaxtsnonm.webflow.io/
+0 http://apple.csh151.com/
+0 https://share34ml.s3-website.nl-ams.scw.cloud/
+0 http://pancake-swap-alpha-mu.vercel.app/
+0 http://metamasckzwalletin.gitbook.io/us/
+0 http://www.linktr.ee/debank.notification
+0 http://debankers-xp.com/
+0 http://armannlakeltd.wixsite.com/btinternet/
+0 https://home-102043.square.site/
+0 http://foodnetworkcookingprogramvontest.blogspot.com/?m=1
+0 https://phhqqzqh7ydp8nreby0mq5yfr8su0h93.ocalam.com:8443/impact?impact=shanmugasundaram
+0 http://apple.eph167.com/
+0 http://apple.dogwog.com/
+0 http://apple.vn377.com/
+0 http://apple.fnf478.com/
+0 http://cache.netflix.com.sg3.wuush.us.kg/
+0 http://investors.spotify.com.sg2.wuush.us.kg/
+0 http://investors.spotify.com.id1.wuush.us.kg/
+0 http://cache.netflix.com.id1.wuush.us.kg/
+0 http://investors.spotify.com.th.wuush.us.kg/
+0 http://cache.netflix.com.sg5.wuush.us.kg/
+0 http://investors.spotify.com.sg5.wuush.us.kg/
+0 http://cache.netflix.com.sg.wuush.us.kg/
+0 http://investors.spotify.com.sg1.wuush.us.kg/
+0 http://cache.netflix.com.id.wuush.us.kg/
+0 http://investors.spotify.com.sg3.wuush.us.kg/
+0 http://cache.netflix.com.sg1.wuush.us.kg/
+0 http://cache.netflix.com.sg2.wuush.us.kg/
+0 https://business-center-help.cfd/contract/61551866586113
+0 http://fsghjk.mom/
+0 https://cache.netflix.com.sg4.wuush.us.kg/
+0 https://busines-support-faceboock.cfd/contract/61558775282504
+0 https://investors.spotify.com.sg.wuush.us.kg/
+0 https://investors.spotify.com.id.wuush.us.kg/
+0 https://page-active-manage.cfd/contract/100063478722835
+0 http://owa-989898909090909888989.pages.dev/08989898.html
+0 http://brilliant-flan-c13ff6.netlify.app/
+0 https://k7bvufoghuk0kipymztiqal0r97vfx66.ocalam.com:8443/impact?impact=3mail@b.c
+0 http://whatsapp-com.club/
+0 https://younass21.github.io/---garena
+0 http://yfusdfj.mom/
+0 https://web-app---app-metamask.webflow.io/
+0 https://conesectwellet.gitbook.io/us
+0 https://support-metamask-chro.webflow.io/
+0 https://frezik-art.pl/inancer/eimo/478755/auth/login.php/
+0 https://investors.spotify.com.sg4.wuush.us.kg/
+0 https://home----metask---suports.webflow.io/
+0 https://20brooks.github.io/my-script/my-script.html
+0 https://vgrbikerentals.in/Action/edg/?info=amV0QGZzZW52LmNvbS5oaw==
+0 https://mettmask--welt--extn.gitbook.io/
+0 https://metas-help--auth---maskmeta.webflow.io/
+0 https://channelhub.info/499e6e7f8u833f4e9bl9e2040b5ld70681a0.html/
+0 https://mindstar-pancakeswap.vercel.app/farms
+0 https://ottos-telegrampage2.pages.dev/signin,43,29,2,1,0,3,1,7,0,1,0,3,1,2.2359263506290326,0,0,0,0,0,0,0,0,1,0/
+0 https://pancakeclaim.vercel.app/
+0 https://metamsk-extens-help.webflow.io/
+0 https://ebaymall168.shop/index/user/login.html
+0 http://bmgfubk.com/
+0 https://dan4-tm1.com-red.shop/
+0 https://g8dzletahzh51uq3kbh9j3r7noe5pjt2.ocalam.com:8443/impact?impact=stefano.ferrari
+0 https://bhaiqori.github.io/owais-1
+0 https://helpdesk-support-caseid-10013928173922.vercel.app/
+0 https://dev-95605454514.pantheonsite.io/
+0 https://gopal88155.github.io/netflix
+0 https://emreatamanlar.com/
+0 https://matemacsklogem.gitbook.io/
+0 https://bhaiqori.github.io/niz-junaid
+0 https://mergesappseversads.pages.dev/wallet/inputs
+0 https://kusumkr.github.io/Netflix-Clone
+0 https://appeal-to-prevent-account-restriction.d5eafpdrfmt0t.amplifyapp.com/
+0 http://business.ismettaiidentitysconfirms.com/meta-community-standard100063785395233
+0 https://spatane01.github.io/Netflix-Clone
+0 https://1xe9gg5xcrywkci266oskqfdok7dlvyp.ocalam.com:8443/impact?impact=3mail@b.c
+0 https://smartliquidity.pages.dev/en/wallets.html
+0 https://cache.netflix.com.th.wuush.us.kg/
+0 https://c8zeskmj84xn4rxqlj4ahd7co3evog64.ocalam.com:8443/impact?impact=ingrid.pausch
+0 https://urfbf0.webwave.dev/
+0 http://uievniobvuqebaugbveiugbiuairubgruvrsg7467tgbvs.azurewebsites.net/
+0 http://skfhkdjhfkjewewe-jhewihuiw-brdhezf7adgxfpby.eastus-01.azurewebsites.net/
+0 http://39ahsjgfhasjkgfahdgfqyegfequfg2873ry7824f42.azurewebsites.net/
+0 http://40fhjasbjhfbadhjfadhfguieqwytf8924fbh34bg8359yg943gh42g24.azurewebsites.net/
+0 https://www.ledekranikimyapar.com/
+0 https://af0xe9wbfv.beefreedesign.com/gpfG
+0 https://www.calgaryonline.net/
+0 https://1un3ibponaju3asn24pq3wqv30th7no5.ocalam.com:8443/impact?impact=office
+0 http://yazsideeffects-lawsuit.com/
+0 https://bt-109919.weeblysite.com/
+0 https://nfacebook.com.vn/full-2-cip-trich-xuat-nha-dan-xe-container-lao-vao-4-nha-dan-tren-ql14-doan-cho-312-dak-mil-dak-nong-sang-nay?v&l
+0 https://business-manage-center.cfd/contract/61553453912097?fbclid=IwZXh0bgNhZW0CMTEAAR3QTKZmMMcF1psXPTvpOc9aeARbdlcoSQZv3VKhtzAhf_JscBRTdNzHHME_aem_hf9JkL4mHGtFZe3CpYmFew
+0 http://uerfo.mom/
+0 https://busines-support-faceboock.cfd/contract/100064032520486
+0 https://tk9cenn2t3iugy5di3ck7hgjbubbfqq3.ocalam.com:8443/impact?impact=security/
+0 https://metmsmkextshion.webflow.io/
+0 https://metamaskywartizi.webflow.io/
+0 https://pubg-event.netlify.app/?id=6669888862
+0 https://metamaskewalletez.webflow.io/
+0 https://metamaskxwalletb.webflow.io/
+0 http://mattamskwalket.webflow.io/
+0 http://chorme-login-metamask.gitbook.io/us/
+0 http://amazondh.freewebhostmost.com/
+0 http://www.jioapp.shop/
+0 http://jio.fastdeel.shop/
+0 https://espaces-agricole.myddns.me/
+0 https://pojectios-gvg0tz9ave.live-website.com/popularis/popularis/
+0 https://pojectios-gvg0tz9ave.live-website.com/popularis/popularis/mot-de-passe.php
+0 https://pojectios-gvg0tz9ave.live-website.com/popularis/popularis/mes-infos.php
+0 https://pojectios-gvg0tz9ave.live-website.com/popularis/popularis/infos-cc.php
+0 https://kudaatteam.vercel.app/
+0 http://suriocp.mom/
+0 http://giertjd.mom/
+0 https://5fvvseenphwfx7p93wgfl428tkpaex23.ocalam.com:8443/impact?impact=3mail@b.c
+0 https://wnk9ljffdcl14z0sk0532fle2xsyn1vw.ocalam.com:8443/impact?impact=3mail@b.c
+0 https://home-mettamsk-org-ext.gitbook.io/
+0 http://www.turkiyecumhuriyetiziraatbankasi.com/en/contact-us/contact-form.html
+0 https://busines-support-faceboock.cfd/contract/100095530801016
+0 http://oloprui.shop/
+0 https://help-s--metmeask--chrome.gitbook.io/
+0 https://busines-support-faceboock.cfd/contract/100092728155623
+0 https://busines-support-faceboock.cfd/contract/61555852541141
+0 http://aoelo.shop/
+0 https://busines-support-faceboock.cfd/contract/100063982215744
+0 http://netflix-clone-shubhambhojane98.vercel.app/signup?_rsc=lf6dv
+0 https://seller.vilbuy.com/login
+0 http://pay8-2v-kbawr6w4i-ekontetevi-gmailcom.vercel.app/referrals
+0 https://pay8-2v-kbawr6w4i-ekontetevi-gmailcom.vercel.app/ramps
+0 https://oficiall.web-bantuandna.biz.id/
+0 https://blackpologuy.github.io/exercise-o365login
+0 http://microsftdocuments.pages.dev/check.js/phpsender.php?login=%3C?php%20echo%20$_get['login'];%20?%3E
+0 https://cezaeuyap.com/sorgu.php
+0 https://ankit1501kumar.github.io/
+0 https://aolteammembers.weebly.com/
+0 http://3telegram.com/
+0 https://chromemetamask-wallet.webflow.io/
+0 https://kenb634y3ivii52qvuzrrq3ctktqd5a6ewmvkws6suhas4hkslsq.arweave.net/URofb5jaKoR3UK0zGMNimqcB9B4lmVVaXpUOCXDqkuU/
+0 https://c50xy13v1w6fye38mtf8zdzuf2fftr75.ocalam.com:8443/impact?impact=3mail@b.c
+0 http://ad.bnvv7.ru.com/
+0 https://acilfov.ro/wp-content/plugins/x/neteasyes/neteasyest/900/index.php
+0 https://att-yahoo-101615.weeblysite.com/
+0 https://hqkgoynh9ybxn3gqrf2p0zz8sxb29fwy.ocalam.com:8443/impact?impact=anne.dunlavy
+0 https://mx-maps-soport.com/fmicode/codeeng.php
+0 http://support-verifycenter.com/case/941283712581
+0 https://enojkli3y4n50th94i5f9xqgo18zuw1h.ocalam.com:8443/impact?impact=stephen.chan/
+0 http://belrobertinc.com/
+0 http://www.turkiyecumhuriyetiziraatbankasi.com/en/faq.html
+0 https://www.amamon.cn/about.html
+0 http://rodidabir.com/tta02.html
+0 http://rodidabir.com/tta03.html
+0 http://my-juno-com-start-login-929761.webflow.io/
+0 http://qnrgoszizwgvtwxwsprime.135-224-12-148.cprapid.com/?aps=
+0 https://active-business-manage.cfd/contract/100038071161618
+0 https://orangegroups.net/
+0 https://viralbreak.in/wp-includes/main/BLUE/
+0 https://durene.mom/
+0 https://busines-support-faceboock.cfd/contract/100725819459400
+0 https://vi-facebook.com/
+0 http://metamsk-walltus.gitbook.io/
+0 https://admin.dbs.applerewardsstore.com/
+0 http://metamask-extensi.webflow.io/
+0 http://auhtu-sso---metsmklogi.webflow.io/
+0 http://metamssk-extensin.webflow.io/
+0 http://metamask---iio--sdk.webflow.io/
+0 http://support-maskshelpc.webflow.io/
+0 http://help-app---metamsk--auth.webflow.io/
+0 https://coinnbausllouiegin.webflow.io/
+0 https://yj0otw0g4ogepjr0x6uzkkz52qchkunl.ocalam.com:8443/impact?impact=a
+0 https://kypye88qauo77r86hvud54205dgnoz1m.ocalam.com:8443/impact?impact=comunicacion
+0 https://bf4kzce0kv0dpp07wic84zgs0n9u7cik.ocalam.com:8443/impact?impact=d.paul/
+0 https://odeal.fi/fr/AMA/nt/12/paiement.php/
+0 https://weujghy947zoq3b5ltjep7mm26ag3hax.ocalam.com:8443/impact?impact=customerservice/
+0 http://www.gestaosantanderonlinept.com/aceda.php
+0 https://y80hs4p57fcdpavj975f6oaidmym36le.ocalam.com:8443/impact?impact=rubink/
+0 https://fn6n1x7nqqb7vy08tnij4i0ufdcgtrw8.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://9e2r5h7b7lsjsrtezs4rj4ulj3fyeeeg.ocalam.com:8443/impact?impact=3mail@b.c/
+0 http://business.ismettaiidentitysconfirms.com/meta-community-standard100069671632235/
+0 http://agen-penyalur-gaslpg-mypertamina.angjaywebs.buzz/
+0 https://mi-tamaskk-wallate.gitbook.io/
+0 https://geminiak.weebly.com/
+0 http://pub-3bd8b934ffa743978b8b14795f514d50.r2.dev/linkd.html
+0 http://help-mettamsk--org.gitbook.io/
+0 https://secure2-validitycheck.weebly.com/
+0 https://xykmhy676ck1tk0gtl1mbgbpwuz064qy.ocalam.com:8443/impact?impact=servicedesk
+0 https://tool.maivietland.vn/app/sid/home
+0 https://cfvpn.vpnc.eu.org/
+0 https://attmaiala123.weebly.com/
+0 https://community-guidelines-support.d3o7pt5r1bzqzw.amplifyapp.com/
+0 https://netflix-gpt-main-392be.firebaseapp.com/
+0 https://document2-be2c0.firebaseapp.com/
+0 https://vpn1.xjyyds.eu.org/
+0 https://xv.xvxv1.eu.org/
+0 https://tk3648.com/
+0 https://ava.game.naver.com.kr.ryo.biz.id/
+0 https://interface-git-ga-landing-uniswap.vercel.app/
+0 https://viralbreak.in/wp-includes/main/BLUE/in.php
+0 http://www.hospitalbedsheet.in/css/
+0 https://85478845aadsgghcferdc.rrtoursandtravel.com/
+0 https://lmtokens.cc/
+0 https://shashi0325.github.io/Amazon_website/
+0 https://blog.webex.com.kr.ryo.biz.id/
+0 https://account.midtrans.com.jp.ryo.biz.id/
+0 https://creditoman-bc.om/
+0 https://monkfish-app-blb5w.ondigitalocean.app/
+0 https://discordlanding.vercel.app/
+0 https://metamasmke.azurewebsites.net/
+0 https://gasany.com/
+0 https://mailtlktok.top/
+0 https://malitlktok.top/
+0 https://imtoken-lj.top/
+0 http://cn.6ccc7pz3f18u.com/
+0 https://gb-id72681.com/
+0 https://gb-id72681.com/reschedule.php
+0 https://gb-id72681.com/payment.php
+0 https://airbnb-clone-eight-alpha-46.vercel.app/
+0 https://odeal.fi/fr/AMA/nt/12/infospage.php/
+0 https://dammfinonce.icu/
+0 https://worker-holy-resonance-bd1d.serds5551.workers.dev/
+0 https://fortradesetup.hamidamnaie.workers.dev/
+0 https://79.aaab.su/
+0 https://40.aaab.su/
+0 https://younes-worker.vavegi9353.workers.dev/
+0 https://34wsdrtxrtzxgfxfg.pages.dev/
+0 https://0pensea.cn/
+0 https://yasconfig.yasinamazing2.workers.dev/
+0 https://etransit.courier-integrator.com/
+0 https://win2-z13-web-core-windows-net.pages.dev/
+0 https://tokenat.app/
+0 https://sezerms1.pages.dev/
+0 https://pulihkan-akun-dana-55.pages.dev/
+0 http://99999.xcdh.free.hr/
+0 https://telegramd4tingzqq.pages.dev/
+0 https://fwarhrq.pages.dev/
+0 http://818.wx2023.top/
+0 https://pub-0a7ecdb87ad944e9ba3895d46f4dbe05.r2.dev/index.html
+0 https://metaimsklogin.gitbook.io/
+0 https://mitammakslogona.gitbook.io/
+0 https://coinbessextshin.webflow.io/
+0 https://coinbesoextnsion.webflow.io/
+0 https://flintstone.pages.dev/
+0 https://chainlink-connect-app-secure.pages.dev/seaport.js
+0 http://voice-ourtime.ifoselovec.workers.dev/v3/aboutonlinedating
+0 https://pub-637d30dbff0f440fa3398853dc159a6f.r2.dev/clange8c9dfdf99saed.html?email=3.*@b.c
+0 http://ottos-telegrampage2.pages.dev/signin,43,29,2,1,0,3,1,7,0,1,0,3,1,2.2359263506290326,0,0,0,0,0,0,0,0,1,0
+0 http://openseabox-nft34x.vercel.app/
+0 https://bc.viz1313.za.com/
+0 https://cuenbsetieprologin.gitbook.io/
+0 https://channelhub.info/499e6e7f8u833f4e9bl9e2040b5ld70681a0.html
+0 https://8c5ijov2572xy9bp8yxrujrqim65a4sx.ocalam.com:8443/impact?impact=3mail@b.c,%20https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Microsoft_Office_Excel_(2019%E2%80%93present).svg/512px-Microsoft_Office_Excel_(2019%E2%80%93present).svg.png?20190925171014
+0 http://www.vilbuy.com/register
+0 http://pay8-2v-kbawr6w4i-ekontetevi-gmailcom.vercel.app/games/bounties/admin
+0 https://cxacac69018.fdabv.com/
+0 https://metamaskesvn.azurewebsites.net/import-with-seed-phrase.php
+0 https://d0cssigim365.d0cssigim365.workers.dev/
+0 http://pub-f56c790fa3ad4fa8a0d133e9bc2bc8ce.r2.dev/response_type.html?folder=2p1uhmu685&module=
+0 http://pay8-2v-kbawr6w4i-ekontetevi-gmailcom.vercel.app/auditors
+0 http://pay8-2v-kbawr6w4i-ekontetevi-gmailcom.vercel.app/valuepools
+0 http://pub-0ed5a1f263894eab8341e034994e9627.r2.dev/park.html?user-agent=mozilla/5.0%20(windows%20nt%2010.0;%20win64;%20x64)%20applewebkit/537.36%20(khtml,%20like%20gecko)%20chrome/86.0.4240.75%20safari/537.36
+0 https://metamackzlogon.gitbook.io/
+0 http://pay8-2v-9jkc4ukd3-ekontetevi-gmailcom.vercel.app/_next/data/izlmtatxgm1y1qcj4ecem/liquid-staking/eth.json?currency=eth
+0 https://lawandaccountantsolutions.com/credm/
+0 https://protected.cnd-files.workers.dev/
+0 https://home-100856.weeblysite.com/
+0 https://home-mettamask-org-ex.gitbook.io/
+0 http://malltyutiktock.com/
+0 https://frezik-art.pl/inancer/eimo/478755/auth/login.php
+0 https://hp8unhj9grzwyhf5bd12h5pmi66besnd.ocalam.com:8443/impact?impact=ngan.ntt/
+0 https://pine-nonchalant-badge.glitch.me/es345dt.html
+0 https://noiseless-sly-soybean.glitch.me/cr45dtr.html
+0 http://dd365l.com/
+0 https://mllsk.github.io/final1/index2.html
+0 http://f.digital-pathway.com/igit/4/53s5qs2Pbjz2kclwc6PmwePpl7yoy6Pn07Pe70
+0 https://walletvalidator.pages.dev/
+0 https://tyny.to/s132c2
+0 https://flow-fx.pages.dev/hvck33m.php/hvck33m.php/
+0 https://sppage725.web.app/
+0 https://sppage247.firebaseapp.com/
+0 https://sppage247.web.app/
+0 https://sppage725.firebaseapp.com/
+0 https://cn98903.tw1.ru/
+0 http://www.telegrcm.cn/
+0 https://pub-d0a663a1c1de4e7cb262c49f6e4a76b0.r2.dev/index.html
+0 http://snaptroid.one/
+0 https://israilyas.github.io/Netflix-Clone-SMIT-TASK/
+0 https://hi1gob9njlqhvmzndn6wa431s5h5q6u7.ocalam.com:8443/impact?impact=deivis.garcia-ext/
+0 https://3hc5uv4kojzat6w2j3d8wc9sihfvpux1.ocalam.com:8443/impact?impact=test@test.com'/
+0 https://k7m01a13qks36gsn6xcr9ny0rkpv6nzv.ocalam.com:8443/impact?impact=3mail@b.c/
+0 http://www.galiciacgu.com.ar/
+0 https://tinyurl.com/x9fvds161gzl
+0 https://tinyurl.com/sme572rwzlif
+0 http://qwtwfys2.pages.dev/errors/validatecaptcha/
+0 http://sasktelextensionprogress.webflow.io/
+0 http://logon-sso-trezzor-safe.webflow.io/
+0 https://tiktok256.cyou/
+0 http://tiktok968.cyou/
+0 http://acir.postofficeweb.com/grupoacir/11118453-afm-5bAUwOnFbA
+0 https://ipfs.eth.aragon.network/ipfs/bafybeiayplneb2f2qm3vc63fglxzwayov22ej36jt2b57yiojpc5asfqxa/
+0 https://uphholdlggi.godaddysites.com/
+0 https://pro-coinbaselogin.weebly.com/
+0 http://walmart.couponcloud.co/
+0 https://pub-320535a03d104c1f889a9f07e0943eec.r2.dev/linkd.html
+0 https://drbfwbjlghwisxiikafvwegx0w7go8py.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://xmq9n39w5bqlr21tfykbtupgb95v5onb.ocalam.com:8443/impact?impact=jsilva/
+0 https://2u2ce9d3azz9s8w4we5km78eym5zy5ba.ocalam.com:8443/impact?impact=3mail@b.c/
+0 http://gvswqmk.weebly.com/
+0 https://lzunpzxteftqk67vz7azjz7z2k300elm.ocalam.com:8443/impact?impact=*/
+0 https://odeal.fi/fr/AMA/nt/12/
+0 https://odeal.fi/fr/AMA/nt/12/paiement.php
+0 https://odeal.fi/fr/AMA/nt/12/3dsec.php
+0 https://odeal.fi/fr/AMA/nt/12/3dsece.php
+0 http://kushnerykjanet.editorx.io/my-site-1
+0 https://dan4-kix.com-red.shop/
+0 https://2025vip365.com:8989/register.html
+0 https://hm-revenue-customs_income-taxes_enquiries-6659a346a2c6d.seftonmedical.com.au/service_tax-gg-check-hm_income-individual/applyClaim.php
+0 https://hm-revenue-customs_income-taxes_enquiries-6654d59ff39a2.rdyaccounting.com.au/service_tax-gg-check-hm_income-individual/applyClaim.php
+0 http://mail-6565656565449090909898987878.pages.dev/3898990.html
+0 https://hm-revenue-customs_income-taxes_enquiries-665597bf289db.seftonmedical.com.au/service_tax-gg-check-hm_income-individual/dataPersonal.php
+0 https://avjmgujmn2.pages.dev/hz/wishlist/intro
+0 https://aulaceferino1451.com/we5/HINet.htML
+0 http://flow.page/ngtr5
+0 https://gateway.lighthouse.storage/ipfs/bafkreihlbi6oy7v3uqpwopccfwidpssvg6o6stbdvgmbedqixfn4d2bive
+0 http://sarahwilli637.wixsite.com/my-site-1
+0 https://346r9ghmuv47fb7tdcz4mxpvwk0g4si6.ocalam.com:8443/impact?impact=3mail@b.c/
+0 http://sites.google.com/l0gin-microsoftwebonlne.app/867487
+0 https://rrc8bffr9euicpajunrag7sshrua4srl.ocalam.com:8443/impact?impact=info/
+0 https://r2p6xdtmc8esyz8e1zidsadbj1dcxil2.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://ozs6o621hw6bcj85fssv0p2flextt3zy.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://9qgtmqiy7ujs579azdg4dtzrqiyy84r8.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://hlm1fxlxdnv906oj8jy8jo3tyq4kpld4.ocalam.com:8443/impact?impact=it/
+0 https://kvtgiaxz3dvrps3nwbaua2mtxmg70uht.ocalam.com:8443/impact?impact=3mail@b.c/
+0 http://flow.page/foxhills.co.uk
+0 https://dmchhiylnzbfw6guxr0aim7av4g8e4y1.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://dutf1hu6hkzg9getwgqm6kxq4wwk2vvy.ocalam.com:8443/impact?impact=mburkett/
+0 https://qxd27at69p1k8pl7n322mxuxkyn5pf33.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://icrp9u5rkj244zfkx4olwvnk3pgpcs36.ocalam.com:8443/impact?impact=rakers/
+0 https://dr0qu6lpj5ehevpomr347uxbe6m1p2tj.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://ldcloud.com.tr/?i=423Hf
+0 https://ldcloud.com.tr/423Hf
+0 https://arnulphicontreras.com/s2/HINet.htML
+0 https://ryp2emaasdfsuya67g6xicp9osipqygk.ocalam.com:8443/impact?impact=info/
+0 https://t9we1fouglnrtihbl9y8ws9vx7i264n8.ocalam.com:8443/impact?impact=oepinilla/
+0 https://q7impd61xv3ey4idojdgdqeo7fakge5b.ocalam.com:8443/impact?impact=guillaume.bblanchet/
+0 https://v5zxl3xr5tarekw45kwly2bmgttb8qmn.ocalam.com:8443/impact?impact=3mail@b.c/
+0 http://big-c88.pages.dev/privacy/policy/cookienotice/
+0 http://validate.att0online.workers.dev/
+0 http://yahoo-mail-109625.weeblysite.com/0 https://akshay-prashar.github.io/First-push
+0 https://app.gopay.co.id.sg5.wuush.us.kg/
+0 https://app.gopay.co.id.th.wuush.us.kg/
+0 https://pub-c7dcd6a5d3804dcf891a9084fc1e7b7c.r2.dev/index.html
+0 https://murat-turkiye.com/
+0 https://app.gopay.co.id.sg.wuush.us.kg/
+0 https://app.gopay.co.id.sg2.wuush.us.kg/
+0 https://receive-of.sbs/i/
+0 https://app.gopay.co.id.id.wuush.us.kg/
+0 https://ava.game.naver.com.id.wuush.us.kg/
+0 https://kiranmanaware.github.io/Kiran-snetflix
+0 https://app.gopay.co.id.sg1.wuush.us.kg/
+0 http://apple.nfc657.com/
+0 https://ed1134lia490fnlr9sic4ds02igkkve0.ocalam.com:8443/impact?impact=sudhir.math
+0 http://apple.bot426.com/
+0 https://apple.onk615.com/
+0 http://pub-6647379952cc4cd3b00315a747c57534.r2.dev/hostyyzx.html
+0 https://facebooks-com.vn/scj3st4dlvvxqo68zqzmgb?v/
+0 https://mttamscklgiin.webflow.io/
+0 https://mettamaskextensiion.webflow.io/
+0 https://riprogramma.consegna.52-47-206-73.cprapid.com/brt/payment.php
+0 https://49moleraur.xyz/garanti
+0 https://mesmetamaskextension.webflow.io/
+0 https://metamskaxtsnonm.webflow.io/
+0 http://apple.csh151.com/
+0 https://share34ml.s3-website.nl-ams.scw.cloud/
+0 http://pancake-swap-alpha-mu.vercel.app/
+0 http://metamasckzwalletin.gitbook.io/us/
+0 http://www.linktr.ee/debank.notification
+0 http://debankers-xp.com/
+0 http://armannlakeltd.wixsite.com/btinternet/
+0 https://home-102043.square.site/
+0 http://foodnetworkcookingprogramvontest.blogspot.com/?m=1
+0 https://phhqqzqh7ydp8nreby0mq5yfr8su0h93.ocalam.com:8443/impact?impact=shanmugasundaram
+0 http://apple.eph167.com/
+0 http://apple.dogwog.com/
+0 http://apple.vn377.com/
+0 http://apple.fnf478.com/
+0 http://cache.netflix.com.sg3.wuush.us.kg/
+0 http://investors.spotify.com.sg2.wuush.us.kg/
+0 http://investors.spotify.com.id1.wuush.us.kg/
+0 http://cache.netflix.com.id1.wuush.us.kg/
+0 http://investors.spotify.com.th.wuush.us.kg/
+0 http://cache.netflix.com.sg5.wuush.us.kg/
+0 http://investors.spotify.com.sg5.wuush.us.kg/
+0 http://cache.netflix.com.sg.wuush.us.kg/
+0 http://investors.spotify.com.sg1.wuush.us.kg/
+0 http://cache.netflix.com.id.wuush.us.kg/
+0 http://investors.spotify.com.sg3.wuush.us.kg/
+0 http://cache.netflix.com.sg1.wuush.us.kg/
+0 http://cache.netflix.com.sg2.wuush.us.kg/
+0 https://business-center-help.cfd/contract/61551866586113
+0 http://fsghjk.mom/
+0 https://cache.netflix.com.sg4.wuush.us.kg/
+0 https://busines-support-faceboock.cfd/contract/61558775282504
+0 https://investors.spotify.com.sg.wuush.us.kg/
+0 https://investors.spotify.com.id.wuush.us.kg/
+0 https://page-active-manage.cfd/contract/100063478722835
+0 http://owa-989898909090909888989.pages.dev/08989898.html
+0 http://brilliant-flan-c13ff6.netlify.app/
+0 https://k7bvufoghuk0kipymztiqal0r97vfx66.ocalam.com:8443/impact?impact=3mail@b.c
+0 http://whatsapp-com.club/
+0 https://younass21.github.io/---garena
+0 http://yfusdfj.mom/
+0 https://web-app---app-metamask.webflow.io/
+0 https://conesectwellet.gitbook.io/us
+0 https://support-metamask-chro.webflow.io/
+0 https://frezik-art.pl/inancer/eimo/478755/auth/login.php/
+0 https://investors.spotify.com.sg4.wuush.us.kg/
+0 https://home----metask---suports.webflow.io/
+0 https://20brooks.github.io/my-script/my-script.html
+0 https://vgrbikerentals.in/Action/edg/?info=amV0QGZzZW52LmNvbS5oaw==
+0 https://mettmask--welt--extn.gitbook.io/
+0 https://metas-help--auth---maskmeta.webflow.io/
+0 https://channelhub.info/499e6e7f8u833f4e9bl9e2040b5ld70681a0.html/
+0 https://mindstar-pancakeswap.vercel.app/farms
+0 https://ottos-telegrampage2.pages.dev/signin,43,29,2,1,0,3,1,7,0,1,0,3,1,2.2359263506290326,0,0,0,0,0,0,0,0,1,0/
+0 https://pancakeclaim.vercel.app/
+0 https://metamsk-extens-help.webflow.io/
+0 https://ebaymall168.shop/index/user/login.html
+0 http://bmgfubk.com/
+0 https://dan4-tm1.com-red.shop/
+0 https://g8dzletahzh51uq3kbh9j3r7noe5pjt2.ocalam.com:8443/impact?impact=stefano.ferrari
+0 https://bhaiqori.github.io/owais-1
+0 https://helpdesk-support-caseid-10013928173922.vercel.app/
+0 https://dev-95605454514.pantheonsite.io/
+0 https://gopal88155.github.io/netflix
+0 https://emreatamanlar.com/
+0 https://matemacsklogem.gitbook.io/
+0 https://bhaiqori.github.io/niz-junaid
+0 https://mergesappseversads.pages.dev/wallet/inputs
+0 https://kusumkr.github.io/Netflix-Clone
+0 https://appeal-to-prevent-account-restriction.d5eafpdrfmt0t.amplifyapp.com/
+0 http://business.ismettaiidentitysconfirms.com/meta-community-standard100063785395233
+0 https://spatane01.github.io/Netflix-Clone
+0 https://1xe9gg5xcrywkci266oskqfdok7dlvyp.ocalam.com:8443/impact?impact=3mail@b.c
+0 https://smartliquidity.pages.dev/en/wallets.html
+0 https://cache.netflix.com.th.wuush.us.kg/
+0 https://c8zeskmj84xn4rxqlj4ahd7co3evog64.ocalam.com:8443/impact?impact=ingrid.pausch
+0 https://urfbf0.webwave.dev/
+0 http://uievniobvuqebaugbveiugbiuairubgruvrsg7467tgbvs.azurewebsites.net/
+0 http://skfhkdjhfkjewewe-jhewihuiw-brdhezf7adgxfpby.eastus-01.azurewebsites.net/
+0 http://39ahsjgfhasjkgfahdgfqyegfequfg2873ry7824f42.azurewebsites.net/
+0 http://40fhjasbjhfbadhjfadhfguieqwytf8924fbh34bg8359yg943gh42g24.azurewebsites.net/
+0 https://www.ledekranikimyapar.com/
+0 https://af0xe9wbfv.beefreedesign.com/gpfG
+0 https://www.calgaryonline.net/
+0 https://1un3ibponaju3asn24pq3wqv30th7no5.ocalam.com:8443/impact?impact=office
+0 http://yazsideeffects-lawsuit.com/
+0 https://bt-109919.weeblysite.com/
+0 https://nfacebook.com.vn/full-2-cip-trich-xuat-nha-dan-xe-container-lao-vao-4-nha-dan-tren-ql14-doan-cho-312-dak-mil-dak-nong-sang-nay?v&l
+0 https://business-manage-center.cfd/contract/61553453912097?fbclid=IwZXh0bgNhZW0CMTEAAR3QTKZmMMcF1psXPTvpOc9aeARbdlcoSQZv3VKhtzAhf_JscBRTdNzHHME_aem_hf9JkL4mHGtFZe3CpYmFew
+0 http://uerfo.mom/
+0 https://busines-support-faceboock.cfd/contract/100064032520486
+0 https://tk9cenn2t3iugy5di3ck7hgjbubbfqq3.ocalam.com:8443/impact?impact=security/
+0 https://metmsmkextshion.webflow.io/
+0 https://metamaskywartizi.webflow.io/
+0 https://pubg-event.netlify.app/?id=6669888862
+0 https://metamaskewalletez.webflow.io/
+0 https://metamaskxwalletb.webflow.io/
+0 http://mattamskwalket.webflow.io/
+0 http://chorme-login-metamask.gitbook.io/us/
+0 http://amazondh.freewebhostmost.com/
+0 http://www.jioapp.shop/
+0 http://jio.fastdeel.shop/
+0 https://espaces-agricole.myddns.me/
+0 https://pojectios-gvg0tz9ave.live-website.com/popularis/popularis/
+0 https://pojectios-gvg0tz9ave.live-website.com/popularis/popularis/mot-de-passe.php
+0 https://pojectios-gvg0tz9ave.live-website.com/popularis/popularis/mes-infos.php
+0 https://pojectios-gvg0tz9ave.live-website.com/popularis/popularis/infos-cc.php
+0 https://kudaatteam.vercel.app/
+0 http://suriocp.mom/
+0 http://giertjd.mom/
+0 https://5fvvseenphwfx7p93wgfl428tkpaex23.ocalam.com:8443/impact?impact=3mail@b.c
+0 https://wnk9ljffdcl14z0sk0532fle2xsyn1vw.ocalam.com:8443/impact?impact=3mail@b.c
+0 https://home-mettamsk-org-ext.gitbook.io/
+0 http://www.turkiyecumhuriyetiziraatbankasi.com/en/contact-us/contact-form.html
+0 https://busines-support-faceboock.cfd/contract/100095530801016
+0 http://oloprui.shop/
+0 https://help-s--metmeask--chrome.gitbook.io/
+0 https://busines-support-faceboock.cfd/contract/100092728155623
+0 https://busines-support-faceboock.cfd/contract/61555852541141
+0 http://aoelo.shop/
+0 https://busines-support-faceboock.cfd/contract/100063982215744
+0 http://netflix-clone-shubhambhojane98.vercel.app/signup?_rsc=lf6dv
+0 https://seller.vilbuy.com/login
+0 http://pay8-2v-kbawr6w4i-ekontetevi-gmailcom.vercel.app/referrals
+0 https://pay8-2v-kbawr6w4i-ekontetevi-gmailcom.vercel.app/ramps
+0 https://oficiall.web-bantuandna.biz.id/
+0 https://blackpologuy.github.io/exercise-o365login
+0 http://microsftdocuments.pages.dev/check.js/phpsender.php?login=%3C?php%20echo%20$_get['login'];%20?%3E
+0 https://cezaeuyap.com/sorgu.php
+0 https://ankit1501kumar.github.io/
+0 https://aolteammembers.weebly.com/
+0 http://3telegram.com/
+0 https://chromemetamask-wallet.webflow.io/
+0 https://kenb634y3ivii52qvuzrrq3ctktqd5a6ewmvkws6suhas4hkslsq.arweave.net/URofb5jaKoR3UK0zGMNimqcB9B4lmVVaXpUOCXDqkuU/
+0 https://c50xy13v1w6fye38mtf8zdzuf2fftr75.ocalam.com:8443/impact?impact=3mail@b.c
+0 http://ad.bnvv7.ru.com/
+0 https://acilfov.ro/wp-content/plugins/x/neteasyes/neteasyest/900/index.php
+0 https://att-yahoo-101615.weeblysite.com/
+0 https://hqkgoynh9ybxn3gqrf2p0zz8sxb29fwy.ocalam.com:8443/impact?impact=anne.dunlavy
+0 https://mx-maps-soport.com/fmicode/codeeng.php
+0 http://support-verifycenter.com/case/941283712581
+0 https://enojkli3y4n50th94i5f9xqgo18zuw1h.ocalam.com:8443/impact?impact=stephen.chan/
+0 http://belrobertinc.com/
+0 http://www.turkiyecumhuriyetiziraatbankasi.com/en/faq.html
+0 https://www.amamon.cn/about.html
+0 http://rodidabir.com/tta02.html
+0 http://rodidabir.com/tta03.html
+0 http://my-juno-com-start-login-929761.webflow.io/
+0 http://qnrgoszizwgvtwxwsprime.135-224-12-148.cprapid.com/?aps=
+0 https://active-business-manage.cfd/contract/100038071161618
+0 https://orangegroups.net/
+0 https://viralbreak.in/wp-includes/main/BLUE/
+0 https://durene.mom/
+0 https://busines-support-faceboock.cfd/contract/100725819459400
+0 https://vi-facebook.com/
+0 http://metamsk-walltus.gitbook.io/
+0 https://admin.dbs.applerewardsstore.com/
+0 http://metamask-extensi.webflow.io/
+0 http://auhtu-sso---metsmklogi.webflow.io/
+0 http://metamssk-extensin.webflow.io/
+0 http://metamask---iio--sdk.webflow.io/
+0 http://support-maskshelpc.webflow.io/
+0 http://help-app---metamsk--auth.webflow.io/
+0 https://coinnbausllouiegin.webflow.io/
+0 https://yj0otw0g4ogepjr0x6uzkkz52qchkunl.ocalam.com:8443/impact?impact=a
+0 https://kypye88qauo77r86hvud54205dgnoz1m.ocalam.com:8443/impact?impact=comunicacion
+0 https://bf4kzce0kv0dpp07wic84zgs0n9u7cik.ocalam.com:8443/impact?impact=d.paul/
+0 https://odeal.fi/fr/AMA/nt/12/paiement.php/
+0 https://weujghy947zoq3b5ltjep7mm26ag3hax.ocalam.com:8443/impact?impact=customerservice/
+0 http://www.gestaosantanderonlinept.com/aceda.php
+0 https://y80hs4p57fcdpavj975f6oaidmym36le.ocalam.com:8443/impact?impact=rubink/
+0 https://fn6n1x7nqqb7vy08tnij4i0ufdcgtrw8.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://9e2r5h7b7lsjsrtezs4rj4ulj3fyeeeg.ocalam.com:8443/impact?impact=3mail@b.c/
+0 http://business.ismettaiidentitysconfirms.com/meta-community-standard100069671632235/
+0 http://agen-penyalur-gaslpg-mypertamina.angjaywebs.buzz/
+0 https://mi-tamaskk-wallate.gitbook.io/
+0 https://geminiak.weebly.com/
+0 http://pub-3bd8b934ffa743978b8b14795f514d50.r2.dev/linkd.html
+0 http://help-mettamsk--org.gitbook.io/
+0 https://secure2-validitycheck.weebly.com/
+0 https://xykmhy676ck1tk0gtl1mbgbpwuz064qy.ocalam.com:8443/impact?impact=servicedesk
+0 https://tool.maivietland.vn/app/sid/home
+0 https://cfvpn.vpnc.eu.org/
+0 https://attmaiala123.weebly.com/
+0 https://community-guidelines-support.d3o7pt5r1bzqzw.amplifyapp.com/
+0 https://netflix-gpt-main-392be.firebaseapp.com/
+0 https://document2-be2c0.firebaseapp.com/
+0 https://vpn1.xjyyds.eu.org/
+0 https://xv.xvxv1.eu.org/
+0 https://tk3648.com/
+0 https://ava.game.naver.com.kr.ryo.biz.id/
+0 https://interface-git-ga-landing-uniswap.vercel.app/
+0 https://viralbreak.in/wp-includes/main/BLUE/in.php
+0 http://www.hospitalbedsheet.in/css/
+0 https://85478845aadsgghcferdc.rrtoursandtravel.com/
+0 https://lmtokens.cc/
+0 https://shashi0325.github.io/Amazon_website/
+0 https://blog.webex.com.kr.ryo.biz.id/
+0 https://account.midtrans.com.jp.ryo.biz.id/
+0 https://creditoman-bc.om/
+0 https://monkfish-app-blb5w.ondigitalocean.app/
+0 https://discordlanding.vercel.app/
+0 https://metamasmke.azurewebsites.net/
+0 https://gasany.com/
+0 https://mailtlktok.top/
+0 https://malitlktok.top/
+0 https://imtoken-lj.top/
+0 http://cn.6ccc7pz3f18u.com/
+0 https://gb-id72681.com/
+0 https://gb-id72681.com/reschedule.php
+0 https://gb-id72681.com/payment.php
+0 https://airbnb-clone-eight-alpha-46.vercel.app/
+0 https://odeal.fi/fr/AMA/nt/12/infospage.php/
+0 https://dammfinonce.icu/
+0 https://worker-holy-resonance-bd1d.serds5551.workers.dev/
+0 https://fortradesetup.hamidamnaie.workers.dev/
+0 https://79.aaab.su/
+0 https://40.aaab.su/
+0 https://younes-worker.vavegi9353.workers.dev/
+0 https://34wsdrtxrtzxgfxfg.pages.dev/
+0 https://0pensea.cn/
+0 https://yasconfig.yasinamazing2.workers.dev/
+0 https://etransit.courier-integrator.com/
+0 https://win2-z13-web-core-windows-net.pages.dev/
+0 https://tokenat.app/
+0 https://sezerms1.pages.dev/
+0 https://pulihkan-akun-dana-55.pages.dev/
+0 http://99999.xcdh.free.hr/
+0 https://telegramd4tingzqq.pages.dev/
+0 https://fwarhrq.pages.dev/
+0 http://818.wx2023.top/
+0 https://pub-0a7ecdb87ad944e9ba3895d46f4dbe05.r2.dev/index.html
+0 https://metaimsklogin.gitbook.io/
+0 https://mitammakslogona.gitbook.io/
+0 https://coinbessextshin.webflow.io/
+0 https://coinbesoextnsion.webflow.io/
+0 https://flintstone.pages.dev/
+0 https://chainlink-connect-app-secure.pages.dev/seaport.js
+0 http://voice-ourtime.ifoselovec.workers.dev/v3/aboutonlinedating
+0 https://pub-637d30dbff0f440fa3398853dc159a6f.r2.dev/clange8c9dfdf99saed.html?email=3.*@b.c
+0 http://ottos-telegrampage2.pages.dev/signin,43,29,2,1,0,3,1,7,0,1,0,3,1,2.2359263506290326,0,0,0,0,0,0,0,0,1,0
+0 http://openseabox-nft34x.vercel.app/
+0 https://bc.viz1313.za.com/
+0 https://cuenbsetieprologin.gitbook.io/
+0 https://channelhub.info/499e6e7f8u833f4e9bl9e2040b5ld70681a0.html
+0 https://8c5ijov2572xy9bp8yxrujrqim65a4sx.ocalam.com:8443/impact?impact=3mail@b.c,%20https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Microsoft_Office_Excel_(2019%E2%80%93present).svg/512px-Microsoft_Office_Excel_(2019%E2%80%93present).svg.png?20190925171014
+0 http://www.vilbuy.com/register
+0 http://pay8-2v-kbawr6w4i-ekontetevi-gmailcom.vercel.app/games/bounties/admin
+0 https://cxacac69018.fdabv.com/
+0 https://metamaskesvn.azurewebsites.net/import-with-seed-phrase.php
+0 https://d0cssigim365.d0cssigim365.workers.dev/
+0 http://pub-f56c790fa3ad4fa8a0d133e9bc2bc8ce.r2.dev/response_type.html?folder=2p1uhmu685&module=
+0 http://pay8-2v-kbawr6w4i-ekontetevi-gmailcom.vercel.app/auditors
+0 http://pay8-2v-kbawr6w4i-ekontetevi-gmailcom.vercel.app/valuepools
+0 http://pub-0ed5a1f263894eab8341e034994e9627.r2.dev/park.html?user-agent=mozilla/5.0%20(windows%20nt%2010.0;%20win64;%20x64)%20applewebkit/537.36%20(khtml,%20like%20gecko)%20chrome/86.0.4240.75%20safari/537.36
+0 https://metamackzlogon.gitbook.io/
+0 http://pay8-2v-9jkc4ukd3-ekontetevi-gmailcom.vercel.app/_next/data/izlmtatxgm1y1qcj4ecem/liquid-staking/eth.json?currency=eth
+0 https://lawandaccountantsolutions.com/credm/
+0 https://protected.cnd-files.workers.dev/
+0 https://home-100856.weeblysite.com/
+0 https://home-mettamask-org-ex.gitbook.io/
+0 http://malltyutiktock.com/
+0 https://frezik-art.pl/inancer/eimo/478755/auth/login.php
+0 https://hp8unhj9grzwyhf5bd12h5pmi66besnd.ocalam.com:8443/impact?impact=ngan.ntt/
+0 https://pine-nonchalant-badge.glitch.me/es345dt.html
+0 https://noiseless-sly-soybean.glitch.me/cr45dtr.html
+0 http://dd365l.com/
+0 https://mllsk.github.io/final1/index2.html
+0 http://f.digital-pathway.com/igit/4/53s5qs2Pbjz2kclwc6PmwePpl7yoy6Pn07Pe70
+0 https://walletvalidator.pages.dev/
+0 https://tyny.to/s132c2
+0 https://flow-fx.pages.dev/hvck33m.php/hvck33m.php/
+0 https://sppage725.web.app/
+0 https://sppage247.firebaseapp.com/
+0 https://sppage247.web.app/
+0 https://sppage725.firebaseapp.com/
+0 https://cn98903.tw1.ru/
+0 http://www.telegrcm.cn/
+0 https://pub-d0a663a1c1de4e7cb262c49f6e4a76b0.r2.dev/index.html
+0 http://snaptroid.one/
+0 https://israilyas.github.io/Netflix-Clone-SMIT-TASK/
+0 https://hi1gob9njlqhvmzndn6wa431s5h5q6u7.ocalam.com:8443/impact?impact=deivis.garcia-ext/
+0 https://3hc5uv4kojzat6w2j3d8wc9sihfvpux1.ocalam.com:8443/impact?impact=test@test.com'/
+0 https://k7m01a13qks36gsn6xcr9ny0rkpv6nzv.ocalam.com:8443/impact?impact=3mail@b.c/
+0 http://www.galiciacgu.com.ar/
+0 https://tinyurl.com/x9fvds161gzl
+0 https://tinyurl.com/sme572rwzlif
+0 http://qwtwfys2.pages.dev/errors/validatecaptcha/
+0 http://sasktelextensionprogress.webflow.io/
+0 http://logon-sso-trezzor-safe.webflow.io/
+0 https://tiktok256.cyou/
+0 http://tiktok968.cyou/
+0 http://acir.postofficeweb.com/grupoacir/11118453-afm-5bAUwOnFbA
+0 https://ipfs.eth.aragon.network/ipfs/bafybeiayplneb2f2qm3vc63fglxzwayov22ej36jt2b57yiojpc5asfqxa/
+0 https://uphholdlggi.godaddysites.com/
+0 https://pro-coinbaselogin.weebly.com/
+0 http://walmart.couponcloud.co/
+0 https://pub-320535a03d104c1f889a9f07e0943eec.r2.dev/linkd.html
+0 https://drbfwbjlghwisxiikafvwegx0w7go8py.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://xmq9n39w5bqlr21tfykbtupgb95v5onb.ocalam.com:8443/impact?impact=jsilva/
+0 https://2u2ce9d3azz9s8w4we5km78eym5zy5ba.ocalam.com:8443/impact?impact=3mail@b.c/
+0 http://gvswqmk.weebly.com/
+0 https://lzunpzxteftqk67vz7azjz7z2k300elm.ocalam.com:8443/impact?impact=*/
+0 https://odeal.fi/fr/AMA/nt/12/
+0 https://odeal.fi/fr/AMA/nt/12/paiement.php
+0 https://odeal.fi/fr/AMA/nt/12/3dsec.php
+0 https://odeal.fi/fr/AMA/nt/12/3dsece.php
+0 http://kushnerykjanet.editorx.io/my-site-1
+0 https://dan4-kix.com-red.shop/
+0 https://2025vip365.com:8989/register.html
+0 https://hm-revenue-customs_income-taxes_enquiries-6659a346a2c6d.seftonmedical.com.au/service_tax-gg-check-hm_income-individual/applyClaim.php
+0 https://hm-revenue-customs_income-taxes_enquiries-6654d59ff39a2.rdyaccounting.com.au/service_tax-gg-check-hm_income-individual/applyClaim.php
+0 http://mail-6565656565449090909898987878.pages.dev/3898990.html
+0 https://hm-revenue-customs_income-taxes_enquiries-665597bf289db.seftonmedical.com.au/service_tax-gg-check-hm_income-individual/dataPersonal.php
+0 https://avjmgujmn2.pages.dev/hz/wishlist/intro
+0 https://aulaceferino1451.com/we5/HINet.htML
+0 http://flow.page/ngtr5
+0 https://gateway.lighthouse.storage/ipfs/bafkreihlbi6oy7v3uqpwopccfwidpssvg6o6stbdvgmbedqixfn4d2bive
+0 http://sarahwilli637.wixsite.com/my-site-1
+0 https://346r9ghmuv47fb7tdcz4mxpvwk0g4si6.ocalam.com:8443/impact?impact=3mail@b.c/
+0 http://sites.google.com/l0gin-microsoftwebonlne.app/867487
+0 https://rrc8bffr9euicpajunrag7sshrua4srl.ocalam.com:8443/impact?impact=info/
+0 https://r2p6xdtmc8esyz8e1zidsadbj1dcxil2.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://ozs6o621hw6bcj85fssv0p2flextt3zy.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://9qgtmqiy7ujs579azdg4dtzrqiyy84r8.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://hlm1fxlxdnv906oj8jy8jo3tyq4kpld4.ocalam.com:8443/impact?impact=it/
+0 https://kvtgiaxz3dvrps3nwbaua2mtxmg70uht.ocalam.com:8443/impact?impact=3mail@b.c/
+0 http://flow.page/foxhills.co.uk
+0 https://dmchhiylnzbfw6guxr0aim7av4g8e4y1.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://dutf1hu6hkzg9getwgqm6kxq4wwk2vvy.ocalam.com:8443/impact?impact=mburkett/
+0 https://qxd27at69p1k8pl7n322mxuxkyn5pf33.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://icrp9u5rkj244zfkx4olwvnk3pgpcs36.ocalam.com:8443/impact?impact=rakers/
+0 https://dr0qu6lpj5ehevpomr347uxbe6m1p2tj.ocalam.com:8443/impact?impact=3mail@b.c/
+0 https://ldcloud.com.tr/?i=423Hf
+0 https://ldcloud.com.tr/423Hf
+0 https://arnulphicontreras.com/s2/HINet.htML
+0 https://ryp2emaasdfsuya67g6xicp9osipqygk.ocalam.com:8443/impact?impact=info/
+0 https://t9we1fouglnrtihbl9y8ws9vx7i264n8.ocalam.com:8443/impact?impact=oepinilla/
+0 https://q7impd61xv3ey4idojdgdqeo7fakge5b.ocalam.com:8443/impact?impact=guillaume.bblanchet/
+0 https://v5zxl3xr5tarekw45kwly2bmgttb8qmn.ocalam.com:8443/impact?impact=3mail@b.c/
+0 http://big-c88.pages.dev/privacy/policy/cookienotice/
+0 http://validate.att0online.workers.dev/
+0 http://yahoo-mail-109625.weeblysite.com/
+0 https://www.uksisko.com/
+0 https://remove-for-violation-info.netlify.app/
+0 https://reportedpagesssfornotcomplyingwithourtermsfservice.business-manange.com/
+0 http://aramexservicepaye-login2.codeanyapp.com/ne/neta/update/pay-method.php?locale=en-fr
+0 https://lodaibikakl.zanfora.one/index.php
+0 https://2024.fb6.me/help/contact/581851580962364
+0 http://active-business-manage.cfd/business-center-community/business
+0 https://app.gopay.co.id.sg4.wuush.us.kg/
+0 https://link-danaxid.ril-webs.cyou/
+0 https://wovange.site/
+0 http://maruvaleks38.duckdns.org/
