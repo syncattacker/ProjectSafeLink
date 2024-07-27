@@ -322,22 +322,26 @@ dataset = 'myDataSet.csv'
 # Execute Functions for automation.
 if __name__ == "__main__":
     isUpdated = checkUpdates(url, textFile)
-    newURLs = appendNewURLs(url, textFile, isUpdated)
-    if newURLs:
-        isBaseUpdated = updateBase(newFile, trainBase)
-        if isBaseUpdated:
-            checkURLs(textFile, newFile)
+    if isUpdated:
+        newURLs = appendNewURLs(url, textFile, isUpdated)
+        if newURLs:
+            isBaseUpdated = updateBase(newFile, trainBase)
+            if isBaseUpdated:
+                checkURLs(textFile, newFile)
+            else:
+                print(isBaseUpdated)
         else:
-            print(isBaseUpdated)
-    else:
-        print(newURLs)
-    isConstructed = constructDataSet(newFile)
-    if isConstructed:
-        isCorrect = checkDataSet(dataset)
-        if isCorrect:
-            checkAccuracy(dataset)
-            print("Done! You are all set")
+            print(newURLs)
+        isConstructed = constructDataSet(newFile)
+        if isConstructed:
+            isCorrect = checkDataSet(dataset)
+            if isCorrect:
+                checkAccuracy(dataset)
+                print("Done! You are all set")
+            else:
+                print(isCorrect)
         else:
-            print(isCorrect)
+            print(isConstructed)
     else:
-        print(isConstructed)
+        print("No Updates Available")
+        exit()
