@@ -253,7 +253,7 @@ def constructDataSet(newFile : str) -> bool:
     Construct the dataset using the extracted features for both Phishing and Legitimate URLs.
     '''
     all_features = []
-    first_write = False
+    first_write = checkDataSet('myDataSet.csv')
     with open(newFile, 'r') as file:
         for line in file:
             label, url = line.strip().split(maxsplit=1)
